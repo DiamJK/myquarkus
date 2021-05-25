@@ -1,4 +1,4 @@
-codehub.sva.deckage org.book.model;
+package org.book.model;
 
 public class Book {
     private Long id;
