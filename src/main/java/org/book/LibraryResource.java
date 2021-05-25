@@ -1,4 +1,4 @@
-codehub.sva.deckage org.book;
+package org.book;
 
 import org.book.model.Book;
 
