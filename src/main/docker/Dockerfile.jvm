@@ -21,14 +21,14 @@
 # docker run -i --rm -p 8080:8080 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" quarkus/getting-started-knative-jvm
 #
 ###
-FROM maven:3.6.3 as builders
-RUN mkdir /build
-RUN mkdir /build/src
-RUN chmod 777 -R /build/
+FROM maven:3.8.1 as builders
+#RUN mkdir /build
+#RUN mkdir /build/src
+#RUN chmod 777 -R /build/
 COPY src /build/src/
 COPY pom.xml /build/
-WORKDIR /build
-RUN mvn clean package
+#WORKDIR /build
+RUN mvn -f /build/pom.xml clean package
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3 
 
@@ -57,10 +57,10 @@ ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jb
 #COPY --chown=1001 target/quarkus-app/app/ /deployments/app/
 #COPY --chown=1001 target/quarkus-app/quarkus/ /deployments/quarkus/
 
-COPY **--from=builders** /build/target/quarkus-app/lib/ /deployments/lib/
-COPY **--from=builders** /build/target/quarkus-app/*.jar /deployments/
-COPY **--from=builders** /build/target/quarkus-app/app/ /deployments/app/
-COPY **--from=builders** /build/target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY --from=builders /build/target/quarkus-app/lib/ /deployments/lib/
+COPY --from=builders /build/target/quarkus-app/*.jar /deployments/
+COPY --from=builders /build/target/quarkus-app/app/ /deployments/app/
+COPY --from=builders /build/target/quarkus-app/quarkus/ /deployments/quarkus/
 
 EXPOSE 8080
 USER 1001
