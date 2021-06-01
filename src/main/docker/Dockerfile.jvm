@@ -57,10 +57,10 @@ ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jb
 #COPY --chown=1001 target/quarkus-app/app/ /deployments/app/
 #COPY --chown=1001 target/quarkus-app/quarkus/ /deployments/quarkus/
 
-COPY **--from=builders** --chown=1001 /build/target/quarkus-app/lib/ /deployments/lib/
-COPY **--from=builders** --chown=1001 /build/target/quarkus-app/*.jar /deployments/
-COPY **--from=builders** --chown=1001 /build/target/quarkus-app/app/ /deployments/app/
-COPY **--from=builders** --chown=1001 /build/target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY **--from=builders** /build/target/quarkus-app/lib/ /deployments/lib/
+COPY **--from=builders** /build/target/quarkus-app/*.jar /deployments/
+COPY **--from=builders** /build/target/quarkus-app/app/ /deployments/app/
+COPY **--from=builders** /build/target/quarkus-app/quarkus/ /deployments/quarkus/
 
 EXPOSE 8080
 USER 1001
