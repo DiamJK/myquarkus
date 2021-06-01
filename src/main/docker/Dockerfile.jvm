@@ -22,9 +22,9 @@
 #
 ###
 FROM maven:3.8.1 as builders
-#RUN mkdir /build
-#RUN mkdir /build/src
-#RUN chmod 777 -R /build/
+RUN mkdir /build
+RUN mkdir /build/src
+RUN chmod 777 -R /build/
 COPY src /build/src/
 COPY pom.xml /build/
 #WORKDIR /build
